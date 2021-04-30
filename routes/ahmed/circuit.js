@@ -30,4 +30,36 @@ router.get('/getarchives/:deliverymanId', verifAuth, async (req, res, next) => {
   res.send({ data: archives });
 });
 
+router.delete('/gotoarchive/:id', verifAuth, async (req, res, next) => {
+  try {
+    const ciruit_delivery = await Admindel.findById(req.params.id);
+    username = ciruit_delivery.username;
+    adresse = ciruit_delivery.adresse;
+    email = ciruit_delivery.email;
+    phone = ciruit_delivery.phone;
+    description = ciruit_delivery.description;
+    from = ciruit_delivery.from;
+    to = ciruit_delivery.to;
+    deliverymanId = ciruit_delivery.deliverymanId;
+    const archive = new ArchiveDeliveryMan({
+      username,
+      adresse,
+      email,
+      phone,
+      description,
+      from,
+      to,
+      deliverymanId,
+    });
+    await archive.save();
+    await ciruit_delivery.remove();
+    console.log('deleted ciruit_delivery', ciruit_delivery);
+    console.log('deleted items', archive);
+
+    res.send({ data: true, dataa: archive });
+  } catch {
+    res.status(404).send({ error: 'ciruit_delivery is not found' });
+  }
+});
+
 module.exports = router;
