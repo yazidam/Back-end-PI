@@ -40,6 +40,15 @@ router.post('/register', async (req, res) => {
     id_company,
   });
   try {
+    var client = new twilio(
+      'AC4bdb76fef466fad0b893541c46dc27b2',
+      'a3d4dc7f24d5cda12a485c86584ac7a9'
+    );
+    client.messages.create({
+      to: '+21625535312',
+      from: '+14013292102 ',
+      body: 'your delivery Man Added successfully',
+    });
     await user.save();
     res.send('user enregistrer ');
   } catch (err) {
