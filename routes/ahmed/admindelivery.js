@@ -56,7 +56,18 @@ router.get(
     res.send({ data: admintab });
   }
 );
+router.get(
+  '/all/deliveryman/package/:deliverymanId',
+  verifAuth,
+  async function (req, res, next) {
+    const admintab = await Admindel.find({
+      deliverymanId: req.params.deliverymanId,
+    });
+    console.log(admintab);
 
+    res.send({ data: admintab });
+  }
+);
 // router.delete('/admindev/:id', async (req, res, next) => {
 //   try {
 //     const admintab = await Admindel.findById(req.params.id);
