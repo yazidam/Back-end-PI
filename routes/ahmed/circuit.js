@@ -62,4 +62,18 @@ router.delete('/gotoarchive/:id', verifAuth, async (req, res, next) => {
   }
 });
 
+router.delete(
+  '/delete_ciruit_from_archive/:id',
+  verifAuth,
+  async (req, res, next) => {
+    try {
+      const dell = await ArchiveDeliveryMan.findById(req.params.id);
+      await dell.remove();
+      res.send({ data: true });
+    } catch (error) {
+      res.status(404).send({ error: 'delivery not found try again' });
+    }
+  }
+);
+
 module.exports = router;
