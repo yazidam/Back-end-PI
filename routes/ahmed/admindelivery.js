@@ -43,6 +43,20 @@ router.post('/add', verifAuth, async function (req, res, next) {
     res.status(404).send({ error: 'ghalta' });
   }
 });
+router.get(
+  '/all/deliveryman/package/to/:deliverymanId',
+  verifAuth,
+  async function (req, res, next) {
+    const admintab = await Admindel.find(
+      {
+        deliverymanId: req.params.deliverymanId,
+      },
+      { _id: 0, to: 1 }
+    );
+    res.send({ data: admintab });
+  }
+);
+
 // router.delete('/admindev/:id', async (req, res, next) => {
 //   try {
 //     const admintab = await Admindel.findById(req.params.id);
