@@ -20,7 +20,7 @@ var VehiculeRouter = require('./routes/Raed/vehicules');
 var admindelivery = require('./routes/ahmed/admindelivery');
 var circuit = require('./routes/ahmed/circuit');
 var chekboxRouter = require('./routes/ahmed/checkbox');
-
+var sendpointRouter = require('./routes/ahmed/sendpoint');
 var app = express();
 
 // view engine setup
@@ -71,7 +71,7 @@ app.use(express.static('routes/images/'));
 app.use('/adminpassdelivery', admindelivery);
 app.use('/chekbox', chekboxRouter);
 app.use('/circuit', circuit);
-
+app.use('/getpoints', sendpointRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
