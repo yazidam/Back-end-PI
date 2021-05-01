@@ -126,5 +126,15 @@ router.get('/all/to', verifAuth, async function (req, res, next) {
   const devv = await Delivery.find({}, { _id: 0, to: 1 });
   res.send({ data: devv });
 });
-
+router.get('/stat_all_deliverys', verifAuth, async (req, res) => {
+  const deliverystat = await Delivery.aggregate([
+    {
+      $group: {
+        _id: '$adresse',
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+  res.send({ data: deliverystat });
+});
 module.exports = router;
